@@ -1,0 +1,25 @@
+---
+- hosts: deployment_server
+  gather_facts: true
+  vars:
+    remote_dir: "$HOME/proj/mediacccde_toot"
+  tasks:
+    - name: copy files to server
+      copy: 
+        src: .
+        dest: "{{remote_dir}}"
+
+    - name: install dependencies
+      pip:
+        requirements: requirements.txt
+        chdir: "{{remote_dir}}"
+        virtualenv: "{{remote_dir}}/venv"
+        virtualenv_python: "python3"
+
+    - name: install cronjob
+      cron: 
+        name: cronjob for regular mediacccde toots
+        special_time: "hourly"
+        job: "{{remote_dir}}/venv/bin/feed2toot -c {{remote_dir}}/feed2toot.ini"
+...
+
