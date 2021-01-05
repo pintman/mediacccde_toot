@@ -20,6 +20,7 @@
       cron: 
         name: cronjob for regular mediacccde toots
         special_time: "hourly"
-        job: "{{remote_dir}}/venv/bin/feed2toot -c {{remote_dir}}/feed2toot.ini"
+        # https://feed2toot.readthedocs.io/en/latest/use.html
+        job: "{{remote_dir}}/venv/bin/feed2toot --dry-run -c {{remote_dir}}/feed2toot.ini"
 ...
 
