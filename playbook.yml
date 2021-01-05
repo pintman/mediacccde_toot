@@ -2,11 +2,16 @@
 - hosts: deployment_server
   gather_facts: true
   vars:
-    remote_dir: "$HOME/proj/mediacccde_toot"
+    remote_dir: "/home/pintman/proj/mediacccde_toot"
   tasks:
     - name: copy files to server
       copy: 
         src: files/
+        dest: "{{remote_dir}}"
+
+    - name: copy config template
+      template:
+        src: templates/feed2toot.ini
         dest: "{{remote_dir}}"
 
     - name: install dependencies
