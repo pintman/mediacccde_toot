@@ -6,7 +6,7 @@
   tasks:
     - name: copy files to server
       copy: 
-        src: .
+        src: config/
         dest: "{{remote_dir}}"
 
     - name: install dependencies
