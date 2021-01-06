@@ -1,2 +1,2 @@
-deploy: playbook.yml
-	ansible-playbook -i inventory playbook.yml
+deploy: uberspace.yml
+	ansible-playbook uberspace.yml

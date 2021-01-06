@@ -1,0 +1,23 @@
+- name: "copy files to server into {{remote_dir}}"
+  copy: 
+    src: "{{ role_path }}/files/"
+    dest: "{{remote_dir}}"
+
+- name: "copy config template to {{remote_dir}}"
+  template:
+    src: feed2toot.ini
+    dest: "{{remote_dir}}"
+
+- name: install dependencies and python venv
+  pip:
+    requirements: requirements.txt
+    chdir: "{{remote_dir}}"
+    virtualenv: "{{remote_dir}}/venv"
+    virtualenv_python: "python3"
+
+- name: install cronjob
+  cron: 
+    name: cronjob for regular mediacccde toots
+    special_time: "hourly"
+    # https://feed2toot.readthedocs.io/en/latest/use.html
+    job: "{{remote_dir}}/venv/bin/feed2toot -c {{remote_dir}}/feed2toot.ini"

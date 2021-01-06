@@ -1,0 +1,3 @@
+# change this to a location on you server where the python environment
+# should be located and all configuration be placed.
+remote_dir: "/tmp/"
