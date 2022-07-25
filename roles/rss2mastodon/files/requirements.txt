@@ -1,2 +1,2 @@
-feed2toot
+feed2toot>=0.14
 
