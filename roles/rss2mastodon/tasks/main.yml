@@ -8,16 +8,17 @@
     src: feed2toot.ini
     dest: "{{remote_dir}}"
 
-- name: install dependencies and python venv
-  pip:
-    requirements: requirements.txt
+- name: install poetry
+  shell: curl -sSL https://install.python-poetry.org | python3 -
+
+- name: install dependencies
+  shell: "{{poetry_bin}} install --no-dev"  
+  args:
     chdir: "{{remote_dir}}"
-    virtualenv: "{{remote_dir}}/venv"
-    virtualenv_python: "python3"
 
 - name: install cronjob
   cron: 
     name: cronjob for regular mediacccde toots
     special_time: "hourly"
     # https://feed2toot.readthedocs.io/en/latest/use.html
-    job: "{{remote_dir}}/venv/bin/feed2toot -c {{remote_dir}}/feed2toot.ini"
+    job: "cd {{remote_dir}} && {{poetry_bin}} run feed2toot -c feed2toot.ini"

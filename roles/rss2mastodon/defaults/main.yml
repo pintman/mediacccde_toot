@@ -3,3 +3,4 @@
 #remote_dir: "/tmp/"
 #feed_url: "https://..."
 #
+poetry_bin: "$HOME/.local/bin/poetry"
